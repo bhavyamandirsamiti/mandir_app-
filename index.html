@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#FF9933">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>🚩 भव्य मन्दिर निर्माण समिति – गुलाबपुरा मोहनगढ़</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        :root { --saffron: #FF9933; --saffron-dark: #e68200; --gold: #D4AF37; --dark-bg: #1e1e2f; --dark-card: #2a2a3a; --danger: #dc3545; --success: #28a745; --gray: #6c757d; --blue: #007bff; --cyan: #17a2b8; }
+        body { background: #fef7e6; transition: 0.3s; }
+        body.dark { background: var(--dark-bg); color: #e0e0e0; }
+        .login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--saffron), #cc7b00); padding: 20px; }
+        .login-card { background: rgba(255,255,255,0.95); border-radius: 48px; padding: 32px; width: 100%; max-width: 400px; text-align: center; }
+        .login-card .logo { font-size: 60px; margin-bottom: 10px; }
+        .login-card h2 { color: var(--saffron); margin-bottom: 10px; font-size: 22px; }
+        .login-card input { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #ddd; border-radius: 60px; }
+        .btn { padding: 10px 18px; border-radius: 40px; border: none; font-weight: 600; cursor: pointer; }
+        .btn-primary { background: var(--saffron); color: white; width: 100%; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-sm { padding: 5px 12px; font-size: 12px; }
+        .app-container { display: none; }
+        .header { background: linear-gradient(90deg, var(--saffron), var(--gold)); color: white; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+        .header h1 { font-size: 18px; }
+        .user-info { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .main-tabs { background: white; display: flex; overflow-x: auto; padding: 12px 20px; gap: 12px; border-bottom: 3px solid var(--saffron); }
+        body.dark .main-tabs { background: var(--dark-card); }
+        .main-tab { border: none; padding: 8px 16px; border-radius: 50px; font-weight: 600; cursor: pointer; white-space: nowrap; font-size: 13px; }
+        .main-tab.active { box-shadow: 0 0 0 2px var(--saffron), 0 0 0 4px white; }
+        .sub-tabs { background: #f8f9fa; display: flex; overflow-x: auto; padding: 10px 20px; gap: 10px; }
+        body.dark .sub-tabs { background: #252535; }
+        .sub-tab { padding: 6px 14px; border-radius: 40px; font-size: 12px; cursor: pointer; background: #e9ecef; }
+        .sub-tab.active { background: var(--saffron); color: white; }
+        .content-area { padding: 20px; padding-bottom: 80px; min-height: calc(100vh - 180px); }
+        .card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px; border-left: 5px solid var(--saffron); }
+        body.dark .card { background: var(--dark-card); }
+        .card-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; color: var(--saffron); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 16px; margin-bottom: 24px; }
+        .stat-card { background: white; border-radius: 20px; padding: 16px; text-align: center; border-bottom: 3px solid var(--saffron); }
+        body.dark .stat-card { background: #2f2f3f; }
+        .stat-value { font-size: 28px; font-weight: bold; color: var(--saffron); }
+        .stat-label { font-size: 12px; color: var(--gray); }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .data-table { width: 100%; border-collapse: collapse; background: white; margin: 10px 0; border-radius: 16px; overflow: hidden; }
+        body.dark .data-table { background: #2a2a3a; }
+        .data-table th { background: linear-gradient(135deg, var(--saffron), var(--gold)); color: white; padding: 12px; text-align: left; }
+        .data-table td { padding: 10px; border-bottom: 1px solid #eee; }
+        .member-card, .donation-row { background: linear-gradient(135deg, #fff7f0, #fff); border-radius: 16px; padding: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border: 1px solid #ffe0b3; }
+        body.dark .member-card, body.dark .donation-row { background: #353546; border-color: #FF9933; }
+        .badge-pending { background: #f8d7da; color: #a71d2a; border-radius: 30px; padding: 4px 12px; font-size: 12px; font-weight: 600; }
+        .badge-paid { background: #d4edda; color: #155724; border-radius: 30px; padding: 4px 12px; font-weight: 600; }
+        .badge-advance { background: #d1ecf1; color: #0c5460; border-radius: 30px; padding: 4px 12px; font-size: 12px; }
+        .form-control { width: 100%; padding: 12px; border-radius: 40px; border: 1px solid #ddd; margin-bottom: 10px; }
+        .modal { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-content { background: white; border-radius: 28px; padding: 24px; width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto; }
+        body.dark .modal-content { background: #2a2a3a; }
+        .toast { position: fixed; bottom: 80px; left: 20px; right: 20px; background: #28a745; color: white; padding: 12px; border-radius: 50px; text-align: center; z-index: 1100; }
+        .progress-bar { height: 10px; background: #e0e0e0; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--saffron), var(--gold)); border-radius: 10px; }
+        .checklist { max-height: 300px; overflow-y: auto; border: 1px solid #ddd; border-radius: 16px; padding: 12px; margin: 12px 0; }
+        .checklist-item { display: flex; align-items: center; gap: 10px; padding: 8px; border-bottom: 1px solid #eee; }
+        @media (max-width: 640px) { .stats-grid { grid-template-columns: 1fr 1fr; } .main-tab { padding: 6px 12px; font-size: 11px; } .header h1 { font-size: 14px; } }
+        .role-super_admin { background: #ffd700; color: #000; padding: 2px 8px; border-radius: 20px; }
+        .role-admin { background: #17a2b8; color: white; padding: 2px 8px; border-radius: 20px; }
+        .role-operator { background: #28a745; color: white; padding: 2px 8px; border-radius: 20px; }
+        .role-viewer { background: #6c757d; color: white; padding: 2px 8px; border-radius: 20px; }
+        .whatsapp-icon { color: #25D366; font-size: 40px; }
+        .social-icons-container { display: flex; justify-content: center; gap: 20px; padding: 20px; }
+    </style>
+</head>
+<body>
+
+<div id="loginPage" class="login-container">
+    <div class="login-card">
+        <div class="logo">🛕</div>
+        <h2>🚩 भव्य मन्दिर निर्माण समिति 🚩</h2>
+        <p>गुलाबपुरा (मोहनगढ़)</p>
+        <input type="text" id="loginEmail" placeholder="ईमेल">
+        <input type="password" id="loginPassword" placeholder="पासवर्ड">
+        <button class="btn btn-primary" onclick="doLogin()">🔐 लॉगिन करें</button>
+        <div id="loginError" style="color:red; margin-top:10px;"></div>
+        <div style="font-size:11px; margin-top:12px;">📱 super@mandir.com / super123</div>
+    </div>
+</div>
+
+<div id="appContainer" class="app-container">
+    <div class="header">
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <img id="committeeLogoImg" style="width: 40px; height: 40px; border-radius: 50%;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23FF9933' width='100' height='100'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white'%3E🛕%3C/text%3E%3C/svg%3E">
+            <h1 id="headerTitle">🚩 मन्दिर समिति</h1>
+        </div>
+        <div class="user-info">
+            <span id="userName"></span>
+            <span id="userRoleBadge" class="role-admin">Admin</span>
+            <i class="fas fa-moon" id="darkModeToggle" style="cursor:pointer;"></i>
+            <i class="fas fa-sign-out-alt" onclick="doLogout()" style="cursor:pointer;"></i>
+        </div>
+    </div>
+    <div class="main-tabs" id="mainTabs"></div>
+    <div class="sub-tabs" id="subTabs"></div>
+    <div class="content-area" id="contentArea"></div>
+</div>
+
+<script>
+    let appData = {
+        settings: { committeeName: "🚩 भव्य मन्दिर निर्माण समिति", upiId: "mandir@upi", president: "रामेश्वर शर्मा", secretary: "सुरेश अग्रवाल", logo: "" },
+        members: [], donations: [], expenses: [], events: [], ramcharitmanas: [], gallery: [], auditLogs: [], users: [], committees: [], receipts: [], construction: { percentage: 35 }
+    };
+    let currentUser = null, currentMain = "home", currentSub = "dashboard", navigationStack = [], isHindi = true;
+
+    function getText(key) { return isHindi ? { dashboard: "🏠 डैशबोर्ड", memberList: "👥 सदस्य", addMember: "➕ जोड़ें", donations: "💰 भुगतान", pending: "⚠️ बकाया", expenses: "💸 व्यय", ledger: "📒 लेजर", reports: "📊 रिपोर्ट", settings: "⚙️ सेटिंग्स" }[key] : key; }
+    function saveToLocal() { localStorage.setItem('mandir_app_data', JSON.stringify(appData)); }
+    function loadFromLocal() {
+        let saved = localStorage.getItem('mandir_app_data');
+        if(saved) { appData = JSON.parse(saved); } else { initSampleData(); }
+        if(appData.users.length === 0) { appData.users = [{ id:1, name:"Super Admin", email:"super@mandir.com", password:"super123", role:"super_admin" }, { id:2, name:"Admin", email:"admin@mandir.com", password:"admin123", role:"admin" }]; }
+        saveToLocal();
+        document.getElementById('headerTitle').innerHTML = appData.settings.committeeName;
+    }
+    function initSampleData() {
+        appData.members = [{ id:1001, name:"रामप्रसाद गुप्ता", father:"श्रीकृष्ण", mobile:"9876543210", village:"गुलाबपुरा", monthlyAmount:200, joinDate:"2024-01-01", status:"active", pending:0, advanceBalance:0 }];
+        appData.donations = [];
+        appData.expenses = [];
+        appData.users = [];
+    }
+    function showToast(msg) { let t = document.createElement('div'); t.className='toast'; t.innerText=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2500); }
+    function closeModal() { let m = document.querySelector('.modal'); if(m) m.remove(); }
+    function can(perm) { if(!currentUser) return false; return currentUser.role === 'super_admin' || currentUser.role === 'admin'; }
+
+    const mainTabsList = [{ id: "home", label: "🏠 होम" }, { id: "members", label: "👥 सदस्य" }, { id: "finance", label: "💰 वित्त" }, { id: "reports", label: "📊 रिपोर्ट" }, { id: "settings", label: "⚙️ सेटिंग्स" }];
+    const subTabsConfig = { home: [{ id: "dashboard", name: "डैशबोर्ड" }, { id: "profile", name: "प्रोफाइल" }], members: [{ id: "memberList", name: "सदस्य सूची" }, { id: "addMember", name: "नया सदस्य" }], finance: [{ id: "donations", name: "भुगतान" }, { id: "pending", name: "बकाया" }, { id: "expenses", name: "व्यय" }, { id: "ledger", name: "लेजर" }], reports: [{ id: "monthlyReport", name: "मासिक" }, { id: "yearlyReport", name: "वार्षिक" }], settings: [{ id: "generalSettings", name: "सामान्य" }, { id: "backup", name: "बैकअप" }, { id: "users", name: "यूजर" }] };
+    function renderNavigation() { let mainHtml = mainTabsList.map(tab => `<button class="main-tab ${currentMain === tab.id ? 'active' : ''}" onclick="switchMain('${tab.id}')">${tab.label}</button>`).join(''); document.getElementById('mainTabs').innerHTML = mainHtml; let subHtml = subTabsConfig[currentMain]?.map(sub => `<button class="sub-tab ${currentSub === sub.id ? 'active' : ''}" onclick="switchSub('${sub.id}')">${getText(sub.id)}</button>`).join('') || ''; document.getElementById('subTabs').innerHTML = subHtml; }
+    function switchMain(id) { currentMain = id; currentSub = subTabsConfig[id][0].id; renderNavigation(); renderCurrentPage(); }
+    function switchSub(id) { currentSub = id; renderNavigation(); renderCurrentPage(); }
+
+    function renderCurrentPage() {
+        if(currentMain === 'home') { if(currentSub === 'dashboard') renderDashboard(); else if(currentSub === 'profile') renderProfile(); }
+        else if(currentMain === 'members') { if(currentSub === 'memberList') renderMemberList(); else if(currentSub === 'addMember') renderAddMember(); }
+        else if(currentMain === 'finance') { if(currentSub === 'donations') renderDonations(); else if(currentSub === 'pending') renderPendingList(); else if(currentSub === 'expenses') renderExpenses(); else if(currentSub === 'ledger') renderLedger(); }
+        else if(currentMain === 'reports') { if(currentSub === 'monthlyReport') renderMonthlyReport(); else if(currentSub === 'yearlyReport') renderYearlyReport(); }
+        else if(currentMain === 'settings') { if(currentSub === 'generalSettings') renderGeneralSettings(); else if(currentSub === 'backup') renderBackup(); else if(currentSub === 'users') renderUsers(); }
+    }
+
+    function renderDashboard() {
+        let totalMembers = appData.members.filter(m=>m.status==='active').length;
+        let totalDonations = appData.donations.reduce((s,d)=>s+d.amount,0);
+        let totalPending = appData.members.reduce((s,m)=>s+(m.pending||0),0);
+        let totalExpenses = appData.expenses.reduce((s,e)=>s+e.amount,0);
+        let html = `<div class="stats-grid"><div class="stat-card"><div class="stat-value">${totalMembers}</div><div class="stat-label">कुल सदस्य</div></div><div class="stat-card"><div class="stat-value">₹${totalDonations}</div><div class="stat-label">कुल दान</div></div><div class="stat-card"><div class="stat-value" style="color:var(--danger);">₹${totalPending}</div><div class="stat-label">कुल बकाया</div></div><div class="stat-card"><div class="stat-value">₹${totalExpenses}</div><div class="stat-label">कुल व्यय</div></div></div><div class="card"><div class="card-title">📋 त्वरित कार्य</div><button class="btn btn-success" onclick="switchSub('addMember')">➕ नया सदस्य जोड़ें</button><button class="btn btn-primary" style="margin-left:10px;" onclick="switchSub('donations')">💰 भुगतान करें</button></div>`;
+        document.getElementById('contentArea').innerHTML = html;
+    }
+    function renderProfile() { document.getElementById('contentArea').innerHTML = `<div class="card"><div class="card-title">👤 मेरी प्रोफाइल</div><p><strong>नाम:</strong> ${currentUser.name}</p><p><strong>ईमेल:</strong> ${currentUser.email}</p><p><strong>रोल:</strong> ${currentUser.role}</p></div>`; }
+    function renderMemberList() {
+        let membersHtml = appData.members.filter(m=>m.status==='active').map(m => `<div class="member-card"><div><strong style="color:var(--saffron);">${m.name}</strong><br>${m.village} | ₹${m.monthlyAmount}/माह | बकाया: ₹${m.pending||0}</div><div><button class="btn-sm btn-success" onclick="openPaymentModal(${m.id})">💰 दान</button><button class="btn-sm btn-danger" onclick="deleteMember(${m.id})">🗑️</button></div></div>`).join('');
+        document.getElementById('contentArea').innerHTML = `<div class="card"><div class="card-title">👥 सदस्य सूची</div><div id="memberListContainer">${membersHtml}</div></div>`;
+    }
+    function deleteMember(id) { if(confirm("हटाएं?")) { appData.members = appData.members.filter(m=>m.id!==id); saveToLocal(); renderMemberList(); showToast("सदस्य हटा दिया"); } }
+    function renderAddMember() { document.getElementById('contentArea').innerHTML = `<div class="card"><div class="card-title">➕ नया सदस्य</div><input id="memName" placeholder="नाम" class="form-control"><input id="memMobile" placeholder="मोबाइल" class="form-control"><input id="memVillage" placeholder="गाँव" class="form-control"><input id="memAmount" placeholder="मासिक राशि (₹)" class="form-control" value="200"><button class="btn btn-primary" onclick="addNewMember()">सदस्य बनाएं</button></div>`; }
+    function addNewMember() { let member = { id: Date.now(), name: document.getElementById('memName').value, mobile: document.getElementById('memMobile').value, village: document.getElementById('memVillage').value, monthlyAmount: parseInt(document.getElementById('memAmount').value), joinDate: new Date().toISOString().slice(0,10), status: 'active', pending: 0, advanceBalance: 0 }; appData.members.push(member); saveToLocal(); showToast("सदस्य जुड़ गया"); switchSub('memberList'); }
+    function openPaymentModal(memberId) { let m = appData.members.find(x=>x.id===memberId); if(!m) return; let amount = prompt(`₹${m.monthlyAmount} का भुगतान करें? (राशि डालें)`, m.monthlyAmount); if(amount) { let donation = { id: Date.now(), memberId, memberName: m.name, type: "monthly", month: new Date().toLocaleString('hi',{month:'long'}), year: new Date().getFullYear(), amount: parseInt(amount), date: new Date().toISOString().slice(0,10), mode: "Cash" }; appData.donations.push(donation); saveToLocal(); showToast(`₹${amount} का भुगतान सफल!`); renderDashboard(); renderMemberList(); } }
+    function renderDonations() { let history = appData.donations.slice().reverse().map(d=>`<div class="donation-row"><span><strong>${d.memberName}</strong> - ₹${d.amount} | ${d.month} ${d.year}</span></div>`).join(''); document.getElementById('contentArea').innerHTML = `<div class="card"><div class="card-title">💰 भुगतान इतिहास</div>${history || 'कोई भुगतान नहीं'}</div>`; }
+    function renderPendingList() { let pendingMembers = appData.members.filter(m=>m.pending>0); let html = pendingMembers.map(m=>`<div class="member-card"><span><strong>${m.name}</strong> - ₹${m.pending} बकाया</span><button class="btn-sm btn-warning" onclick="sendReminder(${m.id})">📱 रिमाइंडर</button></div>`).join(''); document.getElementById('contentArea').innerHTML = `<div class="card"><div class="card-title">⚠️ बकाया सदस्य</div>${html || 'कोई बकाया नहीं'}</div>`; }
+    function sendReminder(id) { let m = appData.members.find(x=>x.id===id); if(m) { window.open(`https://wa.me/91${m.mobile}?text=${encodeURIComponent(`🚩 जय श्री राम, आप पर ₹${m.pending} बकाया है। कृपया जमा करें। UPI: ${appData.settings.upiId}`)}`, '_blank'); } }
+    function renderExpenses() { let expensesHtml = appData.expenses.map(e=>`<div class="donation-row"><div><strong>${e.category}</strong> - ₹${e.amount}<br>${e.note}</div></div>`).join(''); document.getElementById('contentArea').innerHTML = `<div class="card"><div class="card-title">💸 व्यय</div><input id="expCat" placeholder="श्रेणी" class="form-control"><input id="expAmt" type="number" placeholder="राशि" class="form-control"><input id="expNote" placeholder="विवरण" class="form-control"><button class="btn btn-danger" onclick="addExpense()">व्यय जोड़ें</button><div class="mt-2">${expensesHtml}</div></div>`; }
+    function addExpense() { let exp = { id:Date.now(), category: document.getElementById('expCat').value, amount: parseInt(document.getElementById('expAmt').value), note: document.getElementById('expNote').value, date: new Date().toISOString().slice(0,10) }; appData.expenses.push(exp); saveToLocal(); renderExpenses(); renderDashboard(); showToast("व्यय जोड़ा"); }
+    function renderLedger() { let totalInc = appData.donations.reduce((s,d)=>s+d.amount,0); let totalExp = appData.expenses.reduce((s,e)=>s+e.amount,0); document.getElementById('contentArea').innerHTML = `<div class="card"><div class="card-title">📒 लेजर</div><div class="stats-grid"><div class="stat-card"><div class="stat-value">₹${totalInc}</div><div class="stat-label">कुल आय</div></div><div class="stat-card"><div class="stat-value">₹${totalExp}</div><div class="stat-label">कुल व्यय</div></div><div class="stat-card"><div class="stat-value" style="color:var(--saffron);">₹${totalInc-totalExp}</div><div class="stat-label">शेष राशि</div></div></div></div>`; }
+    function renderMonthlyReport() { let months = ['जनवरी','फरवरी','मार्च','अप्रैल','मई','जून','जुलाई','अगस्त','सितम्बर','अक्टूबर','नवम्बर','दिसम्बर']; let rows = months.map(m=>{ let amt = appData.donations.filter(d=>d.month===m && d.year===2025).reduce((s,d)=>s+d.amount,0); return `<tr><td>${m}</td><td>₹${amt}</td>`; }).join(''); document.getElementById('contentArea').innerHTML = `<div class="card"><div class="card-title">📅 मासिक रिपोर्ट</div><table class="data-table"><thead><tr><th>महीना</th><th>दान</th></tr></thead><tbody>${rows}</tbody></table></div>`; }
+    function renderYearlyReport() { let years = [2024,2025]; let rows = years.map(y=>{ let amt = appData.donations.filter(d=>d.year===y).reduce((s,d)=>s+d.amount,0); return `<tr><td>${y}</td><td>₹${amt}</td>`; }).join(''); document.getElementById('contentArea').innerHTML = `<div class="card"><div class="card-title">📆 वार्षिक रिपोर्ट</div><table class="data-table"><thead><tr><th>वर्ष</th><th>दान</th></tr></thead><tbody>${rows}</tbody></table></div>`; }
+    function renderGeneralSettings() { document.getElementById('contentArea').innerHTML = `<div class="card"><div class="card-title">⚙️ सेटिंग्स</div><input id="setName" value="${appData.settings.committeeName}" class="form-control"><input id="setUpi" value="${appData.settings.upiId}" class="form-control"><input id="president" value="${appData.settings.president}" class="form-control"><input id="secretary" value="${appData.settings.secretary}" class="form-control"><button class="btn btn-primary" onclick="saveGeneralSettings()">सेव करें</button></div>`; }
+    function saveGeneralSettings() { appData.settings.committeeName = document.getElementById('setName').value; appData.settings.upiId = document.getElementById('setUpi').value; appData.settings.president = document.getElementById('president').value; appData.settings.secretary = document.getElementById('secretary').value; saveToLocal(); document.getElementById('headerTitle').innerHTML = appData.settings.committeeName; showToast("सेटिंग्स सेव हुईं"); }
+    function renderBackup() { document.getElementById('contentArea').innerHTML = `<div class="card"><div class="card-title">📦 बैकअप</div><button class="btn btn-success" onclick="backupNow()">💾 बैकअप डाउनलोड</button><button class="btn btn-info" onclick="restoreFromFile()">📂 रिस्टोर</button></div>`; }
+    function backupNow() { let a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(appData)])); a.download = `mandir_backup.json`; a.click(); showToast("बैकअप लिया"); }
+    function restoreFromFile() { let inp = document.createElement('input'); inp.type='file'; inp.onchange=e=>{ let reader=new FileReader(); reader.onload=ev=>{ appData=JSON.parse(ev.target.result); saveToLocal(); location.reload(); }; reader.readAsText(e.target.files[0]); }; inp.click(); }
+    function renderUsers() { if(currentUser.role !== 'super_admin') { document.getElementById('contentArea').innerHTML = '<div class="card">❌ केवल सुपर एडमिन</div>'; return; } let userHtml = appData.users.map(u=>`<div class="member-card"><div>${u.name} (${u.role})</div></div>`).join(''); document.getElementById('contentArea').innerHTML = `<div class="card"><div class="card-title">👥 यूजर</div>${userHtml}</div>`; }
+
+    function doLogin() { let user = appData.users.find(u=>u.email===document.getElementById('loginEmail').value && u.password===document.getElementById('loginPassword').value); if(user) { currentUser = user; document.getElementById('loginPage').style.display = 'none'; document.getElementById('appContainer').style.display = 'block'; document.getElementById('userName').innerText = user.name; document.getElementById('userRoleBadge').innerText = user.role; renderNavigation(); renderCurrentPage(); } else { document.getElementById('loginError').innerText = "गलत लॉगिन"; } }
+    function doLogout() { currentUser = null; document.getElementById('loginPage').style.display = 'flex'; document.getElementById('appContainer').style.display = 'none'; }
+
+    document.getElementById('darkModeToggle')?.addEventListener('click', () => document.body.classList.toggle('dark'));
+    loadFromLocal();
+</script>
+</body>
+</html>
